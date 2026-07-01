@@ -346,57 +346,63 @@
 
         /* 隐藏的原生资产硬核仓库 */
         #nativeImageWarehouse { display: none; }
-/* 📱 手机端/移动端全像素终极自适应（电脑端完全不影响） */
-        @media screen and (max-width: 768px) {
-            /* 1. 彻底解散双栏，强行给两个大面板加上 30px 的上下安全间距，拒绝重叠 */
-            html, body { overflow-x: hidden !important; width: 100% !important; }
+/* 📱 手机端/移动端全像素完美自适应优化 */
+        @media (max-width: 768px) {
+            /* 页面外边距微调，使容器整体居中 */
+            body {
+                padding: 15px 10px !important;
+            }
+            
+            /* 1. 彻底解散双栏，强制变为上下垂直排列，并加上 30px 的安全间距隔离两个面板 */
             .main-container {
                 display: flex !important;
                 flex-direction: column !important;
-                gap: 35px !important;
+                gap: 30px !important; 
                 width: 100% !important;
                 max-width: 100% !important;
-                grid-template-columns: 1fr !important;
+                box-sizing: border-box !important;
             }
+            
+            /* 确保两个大面板宽度都撑满手机屏幕，不偏向一边 */
             .left-sidebar, .console-screen {
                 width: 100% !important;
                 max-width: 100% !important;
-                display: block !important;
+                box-sizing: border-box !important;
             }
             
-            /* 2. 首页5个大分类方块手机端自适应 */
+            /* 头像在手机端居中缩小 */
+            .avatar-box {
+                max-width: 180px !important;
+                margin: 0 auto 15px auto !important;
+            }
+            
+            /* 2. 彻底拯救首页 5 个分类方块，给它们自由撑开的高度 */
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
                 max-height: none !important;
                 height: auto !important;
+                gap: 15px !important;
             }
             .project-card[onclick*="plan"] {
                 grid-column: span 2 !important;
             }
-
-            /* 3. 核心修复：针对二级页面（背包）卡带网格及卡带本身 */
-            /* 彻底强制将二级页面所有网格改为两列排列 */
-            .case-grid, 
-            [id^="sub-page-"] .gallery-grid,
-            div[style*="grid-template-columns"] {
+            
+            /* 3. 彻底拯救二级页面的卡带小方块：由三列强制改为两列，防止横向挤压 */
+            .case-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
-                display: grid !important;
+                gap: 20px 15px !important; /* 上下间距 20px，左右间距 15px */
                 height: auto !important;
-                max-height: none !important;
-                gap: 20px 15px !important;
-            }
-
-            /* 彻底拉高卡带本身的高度，拒绝被压扁 */
-            .project-card, 
-            .case-card-container,
-            [id^="sub-page-"] .project-card,
-            .case-grid .project-card {
-                height: 165px !important; /* 强制给它 165 像素的饱和高度 */
-                min-height: 165px !important;
                 max-height: none !important;
             }
             
-            /* 4. 纵向拉高具体作品的长图弹窗浏览区域 */
+            /* 核心：将卡带外部容器的高度强制解除限制，由内容完美撑开，拒绝压扁！ */
+            .case-card-container {
+                height: auto !important; 
+                min-height: 140px !important; /* 设定底线高度，确保卡带饱满立体 */
+                padding-bottom: 10px !important;
+            }
+            
+            /* 4. 纵向拉高大图弹窗浏览区域（占手机屏幕的 75% 高度） */
             .scroll-gallery-viewport { 
                 max-height: 75vh !important; 
             }
