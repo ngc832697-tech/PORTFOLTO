@@ -346,46 +346,45 @@
 
         /* 隐藏的原生资产硬核仓库 */
         #nativeImageWarehouse { display: none; }
-		/* 📱 手机端/移动端完美自适应适配 */
+/* 📱 手机端/移动端全新专属自适应优化补丁（电脑端完全不受影响） */
         @media (max-width: 768px) {
-            /* 页面外边距稍微缩小，腾出更多空间 */
-            body {
-                padding: 10px;
-            }
-            
-            /* 核心修改：将电脑端的左右双栏，在手机端解散，改为上下垂直排列 */
+            /* 1. 针对手机端：将左右双栏解散，让右侧主页面获得 100% 满宽大空间 */
             .main-container {
-                grid-template-columns: 1fr; /* 变成单列 */
+                grid-template-columns: 1fr !important;
                 gap: 20px;
             }
             
-            /* 让左侧侧边栏的头像、联系按钮等宽度自适应 */
-            .left-sidebar {
-                width: 100%;
-            }
-            
-            /* 优化：手机上头像如果太大很占空间，缩到最大 200px 居中 */
+            /* 手机端头像区域微调居中 */
             .avatar-box {
                 max-width: 200px;
                 margin: 0 auto;
             }
             
-            /* 首页 5 个栏目小方块在手机上重新排版：改为两列，第五个拉满 */
+            /* 2. 针对手机端：解决首页 5 个栏目小方块被压缩的问题 */
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
-                max-height: none; /* 取消滚动条限制，让小方块在手机上直接展开 */
+                max-height: none !important; /* 彻底释放高度限制 */
+                height: auto !important;     /* 拒绝压扁 */
             }
             .project-card[onclick*="plan"] {
-                grid-column: span 2 !important; /* 确保策划作品在手机上也横跨两列 */
+                grid-column: span 2 !important; /* 策划方块横跨两列 */
             }
             
-            /* 二级背包卡带页面在手机上改为两列排列（原本三列在手机上太挤） */
+            /* 3. 针对手机端：解决二级页面（卡带背包）小方块依然被压缩、变形的问题 */
             .case-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 15px;
+                grid-template-columns: repeat(2, 1fr) !important; /* 手机端由三列变两列，防止挤压 */
+                gap: 15px !important;
+            }
+            .case-card-container { 
+                height: 110px !important; /* 重新锁死卡带的黄金比例高度，饱满不扁平 */
             }
             
-            /* 游戏机外壳屏幕在手机上把内边距缩小，防止两侧黑边太宽 */
+            /* 4. 针对手机端：把点开长图的作品弹窗纵向大大加高 */
+            .scroll-gallery-viewport { 
+                max-height: 70vh !important; /* 让弹窗高度占手机屏幕的 70%，长图露出的面积更大 */
+            }
+            
+            /* 稍微缩小手机端游戏机的黑边内边距，腾出更多可视空间 */
             .console-screen {
                 padding: 12px;
             }
