@@ -460,6 +460,19 @@
             <div class="tab">SYSTEM</div>
         </div>
 
+<style>
+@media screen and (max-width: 768px) {
+    html, body { overflow-x: hidden !important; width: 100% !important; }
+    .main-container { display: flex !important; flex-direction: column !important; gap: 35px !important; width: 100% !important; grid-template-columns: 1fr !important; }
+    .left-sidebar, .console-screen { width: 100% !important; max-width: 100% !important; display: block !important; }
+    .gallery-grid, [id^="sub-page-"] .gallery-grid, .case-grid, div[style*="grid-template-columns"] { grid-template-columns: repeat(2, 1fr) !important; display: grid !important; height: auto !important; max-height: none !important; gap: 20px 15px !important; }
+    .project-card, .case-card-container, [id^="sub-page-"] .project-card, .case-grid .project-card { height: 165px !important; min-height: 165px !important; max-height: none !important; }
+    .scroll-gallery-viewport { max-height: 75vh !important; }
+}
+</style>
+
+<div class="main-container">
+		
         <div class="main-container">
             <div class="left-sidebar">
                 <div class="avatar-box">
