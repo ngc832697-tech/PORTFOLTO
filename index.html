@@ -2,12 +2,12 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CJL // PORTFOLIO_FINAL</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet">
     <link href="https://unpkg.com/pixelarticons@1.8.1/css/pixelarticons.css" rel="stylesheet">
-	
+    
     <style>
         /* 基础样式与像素光标 */
         * {
@@ -98,7 +98,6 @@
             image-rendering: pixelated; 
         }
 
-        /* 技能网格样式 */
         .skills-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -347,8 +346,7 @@
 
         /* 隐藏的原生资产硬核仓库 */
         #nativeImageWarehouse { display: none; }
-
-        /* 📱 手机移动端：最强暴力重置补丁 */
+/* 📱 手机移动端：最强暴力重置补丁 */
         @media screen and (max-width: 768px) {
             body {
                 padding: 5px !important;
@@ -432,6 +430,7 @@
 <body>
 
     <div id="nativeImageWarehouse">
+        
         <div id="src-design-0">
             <img src="海报/001.png"> <img src="海报/002.png"> <img src="海报/003.png">
             <img src="海报/004.png"> <img src="海报/005.png"> <img src="海报/006.png"> <img src="海报/007.png">
@@ -446,6 +445,7 @@
             <img src="项目/004.png"> <img src="项目/005.png"> <img src="项目/006.jpg">
             <img src="项目/007.png"> <img src="项目/008.png"> <img src="项目/009.png">
         </div>
+
         <div id="src-video-0">
             <video src="混剪/001.mp4" controls preload="metadata"></video>
             <video src="混剪/002.mp4" controls preload="metadata"></video>
@@ -455,20 +455,25 @@
             <video src="广告/001.mp4" controls preload="metadata"></video>
             <video src="广告/002.mp4" controls preload="metadata"></video>
             <video src="广告/003.mp4" controls preload="metadata"></video>
+
         </div>
         <div id="src-video-2">
             <video src="热点视频/001.mp4" controls preload="metadata"></video>
             <video src="热点视频/002.mp4" controls preload="metadata"></video>
             <video src="热点视频/003.mp4" controls preload="metadata"></video>
         </div>
+
         <div id="src-operation-0"><img src="operation/001.png"></div>
         <div id="src-operation-1"><img src="operation/002.png"></div>
+
         <div id="src-copy-0"><img src="copy/001.jpg"></div>
         <div id="src-copy-1"><img src="copy/002.jpg"><img src="copy/003.png"></div>
         <div id="src-copy-2"><img src="copy/004.png"></div>
+
         <div id="src-plan-0"><img src="plan/营销/001.jpg"><img src="plan/营销/002.jpg"><img src="plan/营销/003.jpg"><img src="plan/营销/004.jpg"><img src="plan/营销/005.jpg"><img src="plan/002.jpg"></div>
         <div id="src-plan-1"><img src="plan/001.jpg"></div>
         <div id="src-plan-2"><img src="plan/游戏化/001.png"><img src="plan/游戏化/002.png"><img src="plan/游戏化/003.png"><img src="plan/游戏化/004.png"></div>
+
     </div>
 
     <div class="console-screen">
@@ -482,7 +487,7 @@
         <div class="main-container">
             <div class="left-sidebar">
                 <div class="avatar-box">
-                    <img src="avatar.jpg">
+                    <img src="images/avatar.jpg" onerror="this.src='E:\\wwwork\\A简历\\avatar.jpg'">
                 </div>
                 <div class="skills-grid">
                     <div class="skill-item" style="grid-column: span 2; margin-bottom: 5px;">
@@ -521,6 +526,7 @@
                     </div>
                     
                     <div class="gallery-grid" id="mainGalleryGrid">
+                        
                         <div class="project-card" onclick="openCategory('design')">
                             <div class="badge green">001</div>
                             <div class="card-preview">
@@ -565,13 +571,14 @@
                             </div>
                             <div class="card-info"><span class="card-title">策划作品</span><span class="card-subtitle">营销 / 互动视频 / 文旅</span></div>
                         </div>
+
                     </div>
                 </div>
 
                 <div class="quest-log-section">
                     <div class="quest-title"><i class="pixelicon-git-commit"></i> QUEST_LOG</div>
                     <div class="quest-content" id="questContent">
-                        本人具备系统的专业知识与丰富的实践经验，富有网感和创意，能及时捕捉热点，擅长新媒体内容策划与产出、视觉设计与视频制作，能独立完成推文撰写、公众号运营及线上线下活动全流程执行。具有数据分析与信息整合能力，注重创意与实效结合，兼具强执行力与沟通协调能力，致力于为 brand 传播注入年轻化、专业化的新媒体活力。
+                        本人具备系统的专业知识与丰富的实践经验，富有网感和创意，能及时捕捉热点，擅长新媒体内容策划与产出、视觉设计与视频制作，能独立完成推文撰写、公众号运营及线上线下活动全流程执行。具有数据分析与信息整合能力，注重创意与实效结合，兼具强执行力与沟通协调能力，致力于为品牌传播注入年轻化、专业化的新媒体活力。
                     </div>
                     <div class="arrow-indicator">▶</div>
                 </div>
@@ -593,6 +600,7 @@
     </div>
 
     <script>
+        // 5大核心资产板块联动元数据
         const categoryMeta = {
             design: {
                 title: "ARCHIVE // DESIGN", slogan: "ROOM_01: 视觉美学与线下物料资产",
@@ -648,6 +656,7 @@
         const originalGalleryHTML = document.getElementById('mainGalleryGrid').innerHTML;
         const modal = document.getElementById('galleryModal');
 
+        // 生成二级非纯白代码渐变样式背包网格
         function openCategory(key) {
             const data = categoryMeta[key];
             if (!data) return;
@@ -683,6 +692,7 @@
             document.getElementById('mainGalleryGrid').innerHTML = gridHTML;
         }
 
+        // 自动化抓取多媒体资源
         function openRollGallery(catKey, caseIndex) {
             const caseItem = categoryMeta[catKey].cases[caseIndex];
             document.getElementById('modalTitle').innerText = `ITEM_VIEWER // ${caseItem.name}`;
@@ -717,26 +727,56 @@
             modal.style.display = 'flex';
         }
 
+        // 返回首页主菜单
         function backToMain() {
             document.getElementById('panelTitle').innerText = "PORTFOLIO";
             document.getElementById('panelSlogan').innerText = "Content builds bridges; creativity brings value";
-            document.getElementById('questContent').innerText = `本人具备系统的专业知识与丰富的实践经验，富有网感和创意，能及时捕捉热点，擅长新媒体内容策划与产出、视觉设计与视频制作，能独立完成推文撰写、公众号运营及线上线下活动全流程执行。具有数据分析与信息整合能力，注重创意与实效结合，兼具强执行力与沟通协调能力，致力于为 brand 传播注入年轻化、专业化的新媒体活力。`;
-            document.getElementById('backMenuBtn').style.display = "none";
             document.getElementById('gallerySectionTitle').innerText = "PROJECT GALLERY";
+            document.getElementById('backMenuBtn').style.display = "none";
             document.getElementById('mainGalleryGrid').innerHTML = originalGalleryHTML;
+            document.getElementById('questContent').innerText = "本人具备系统的专业知识与丰富的实践经验，富有网感和创意，能及时捕捉热点，擅长新媒体内容策划与产出、视觉设计与视频制作，能独立完成推文撰写、公众号运营及线上线下活动全流程执行。具有数据分析与信息整合能力，注重创意与实效结合，兼具强执行力与沟通协调能力，致力于为品牌传播注入年轻化、专业化的新媒体活力。";
+            
+            // 返回主页时自动关闭可能正在播放的本地视频
+            const openVideos = modal.querySelectorAll('video');
+            openVideos.forEach(v => v.pause());
         }
 
-        function closeModal() {
-            modal.style.display = 'none';
-            const videos = modal.querySelectorAll('video');
-            videos.forEach(v => v.pause());
+        function closeModal() { 
+            const openVideos = modal.querySelectorAll('video');
+            openVideos.forEach(v => v.pause());
+            modal.style.display = 'none'; 
         }
+        
+        // 物理网页防盗
+        window.addEventListener('contextmenu', e => e.preventDefault(), false);
+        window.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'c' || e.key === 'C')) e.preventDefault();
+        });
+	// 绑定左侧【CONTACT TRAINER】联系我按钮的点击事件
+        document.getElementById('contactBtn').addEventListener('click', function() {
+            // 这里将弹窗标题改为联系信息
+            document.getElementById('modalTitle').innerText = "SYSTEM // CONTACT_INFO";
+            
+            // 注入你的详细联系方式 HTML 内容
+            const injectTarget = document.getElementById('modalGridInject');
+            injectTarget.innerHTML = `
+                <div style="grid-column: span 1; padding: 20px; font-size: 13px; line-height: 2; background: #fff; border: 3px solid #000; box-shadow: 4px 4px 0px #000;">
+                    <p style="margin: 0 0 10px 0; font-weight: bold; color: #b53a1d; border-bottom: 2px solid #000; padding-bottom: 5px;">📞 欢迎建立联系 / CONTACT ME</p>
+                    <p style="margin: 5px 0;"><strong>姓名：</strong>陈佳丽 </p>
+                    <p style="margin: 5px 0;"><strong>邮箱：</strong>2572305704@qq.com</p>
+                    <p style="margin: 5px 0;"><strong>微信：</strong>NGC-832697 <span style="font-size: 10px; color: #666;"></span></p>
+                    <br>
+                    <p style="margin: 0; font-size: 10px; color: #777; text-align: center; border-top: 1px dashed #000; padding-top: 10px;">💡 期待与您的团队共同创造更有网感与价值的内容！</p>
+                </div>
+            `;
+            // 展现弹窗
+            modal.style.display = 'flex';
+        });
 
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
+        // 顺便补上【SAVE DATA】存档按钮的复古像素风小彩蛋提示
+        document.getElementById('saveBtn').addEventListener('click', function() {
+            alert('💾 SYSTEM: 资产档案保存成功！当前进度已固化至作品集区块。');
+        });
     </script>
 </body>
 </html>
