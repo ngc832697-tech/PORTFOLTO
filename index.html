@@ -348,66 +348,83 @@
         /* 隐藏的原生资产硬核仓库 */
         #nativeImageWarehouse { display: none; }
 
-        /* 📱 手机移动端：专属自适应核心隔离样式（使用父级限定，绝对不污染电脑端） */
+        /* 📱 手机移动端：最强暴力重置补丁 */
         @media screen and (max-width: 768px) {
             body {
-                padding: 10px !important;
+                padding: 5px !important;
+                overflow-x: hidden !important; /* 严防手机端左右滑屏 */
             }
             
-            /* 让游戏机外壳在手机上全宽铺满，保持居中，不偏向一边 */
+            /* 1. 强行把游戏机外壳锁死在手机屏幕宽度内，防止外溢偏边 */
             .console-screen {
                 width: 100% !important;
-                max-width: 100% !important;
-                padding: 12px !important;
+                max-width: 100vw !important;
+                padding: 10px !important;
                 box-sizing: border-box !important;
+                float: none !important;
+                margin: 0 auto !important;
             }
 
-            /* 核心：只对手机端下的 main-container 解散双栏，变为上下垂直排列 */
+            /* 2. 彻底瓦解双栏，全变成上下单列 */
             body .main-container {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 30px !important; 
+                display: block !important; /* 不用 flex，直接用最原始的块级流，绝对不会横向撑开 */
                 width: 100% !important;
             }
             
-            body .left-sidebar, body .right-panel {
+            body .left-sidebar {
                 width: 100% !important;
-                max-width: 100% !important;
+                margin-bottom: 25px !important; /* 给下方右面板拉开距离 */
+            }
+            
+            body .right-panel {
+                width: 100% !important;
             }
             
             body .avatar-box {
-                max-width: 180px !important;
+                max-width: 140px !important; /* 缩小头像 */
                 margin: 0 auto 10px auto !important;
             }
-            
-            /* 首页 5 个大分类方块手机端自适应 */
+
+            /* 3. 首页 5 个大分类卡片在手机端全部单列（一列一个），彻底解决挤压 */
             body .gallery-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
+                grid-template-columns: 1fr !important; 
                 max-height: none !important;
                 height: auto !important;
-                gap: 12px !important;
+                gap: 15px !important;
             }
-            body .project-card[onclick*="plan"] {
-                grid-column: span 2 !important;
+            body .project-card {
+                grid-column: span 1 !important;
             }
             
-            /* 二级背包页面的卡带小方块：强制转为两列，加入上下安全行距，防重叠 */
+            /* 4. 二级背包卡带：在手机端全部变成【一列一个】 */
             body .case-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 25px 15px !important; 
+                grid-template-columns: 1fr !important;
+                gap: 30px !important; /* 增大间距，给绝对定位的卡片留足后路 */
                 height: auto !important;
                 max-height: none !important;
             }
             
-            /* 强行撑高二级卡带容器的独立高度，给文字和内容留出饱满空间，彻底拒绝被压扁 */
+            /* 5. 解决卡带叠罗汉问题：手机端拉高容器，并解除部分重叠效果 */
+            body .case-stack-item {
+                margin-bottom: 20px !important;
+            }
             body .case-card-container {
-                height: 145px !important; 
-                min-height: 145px !important;
+                height: 140px !important; 
+            }
+            /* 手机端没必要玩高难度图层重叠，直接让底层隐藏，防止遮挡文字 */
+            body .case-stack-card.layer-3, 
+            body .case-stack-card.layer-2 {
+                display: none !important; 
+            }
+            body .case-stack-card.layer-1 {
+                position: relative !important; /* 变回相对定位，自动撑开高度 */
+                transform: none !important;
+                height: 100% !important;
             }
             
-            /* 作品长图弹窗纵向拔高 */
+            /* 画廊弹窗纵向拔高 */
             body .scroll-gallery-viewport { 
-                max-height: 70vh !important; 
+                max-height: 60vh !important; 
             }
         }
     </style>
