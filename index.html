@@ -346,6 +346,50 @@
 
         /* 隐藏的原生资产硬核仓库 */
         #nativeImageWarehouse { display: none; }
+		/* 📱 手机端/移动端完美自适应适配 */
+        @media (max-width: 768px) {
+            /* 页面外边距稍微缩小，腾出更多空间 */
+            body {
+                padding: 10px;
+            }
+            
+            /* 核心修改：将电脑端的左右双栏，在手机端解散，改为上下垂直排列 */
+            .main-container {
+                grid-template-columns: 1fr; /* 变成单列 */
+                gap: 20px;
+            }
+            
+            /* 让左侧侧边栏的头像、联系按钮等宽度自适应 */
+            .left-sidebar {
+                width: 100%;
+            }
+            
+            /* 优化：手机上头像如果太大很占空间，缩到最大 200px 居中 */
+            .avatar-box {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+            
+            /* 首页 5 个栏目小方块在手机上重新排版：改为两列，第五个拉满 */
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                max-height: none; /* 取消滚动条限制，让小方块在手机上直接展开 */
+            }
+            .project-card[onclick*="plan"] {
+                grid-column: span 2 !important; /* 确保策划作品在手机上也横跨两列 */
+            }
+            
+            /* 二级背包卡带页面在手机上改为两列排列（原本三列在手机上太挤） */
+            .case-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 15px;
+            }
+            
+            /* 游戏机外壳屏幕在手机上把内边距缩小，防止两侧黑边太宽 */
+            .console-screen {
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
