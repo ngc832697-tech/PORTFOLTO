@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CJL // PORTFOLIO_FINAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/pixelarticons@1.8.1/css/pixelarticons.css" rel="stylesheet">
+    
+    <style>
+        /* 基础样式与像素光标 */
+        * {
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', "Courier New", "Microsoft YaHei", monospace;
+            -webkit-user-drag: none;
+        }
+        
+        body {
+            background-color: #d1b46a;
+            background-image: radial-gradient(#c4a456 2px, transparent 2px);
+            background-size: 16px 16px;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            cursor: url('https://unpkg.com/nes.css@2.3.0/assets/cursor-click.png'), auto;
+        }
+
+        a, button, .project-card, .tab, .case-stack-item {
+            cursor: url('https://unpkg.com/nes.css@2.3.0/assets/cursor-hand.png'), pointer !important;
+        }
+
+        /* 游戏机主外壳屏幕 */
+        .console-screen {
+            background-color: #f2d06b;
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 顶部导航栏 */
+        .header-tabs {
+            display: flex;
+            gap: 10px;
+            border-bottom: 4px solid #000;
+            padding-bottom: 10px;
+        }
+        .tab {
+            background-color: #fff;
+            border: 3px solid #000;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: transform 0.1s, background-color 0.1s;
+        }
+        .tab.active {
+            background-color: #000;
+            color: #fff;
+        }
+        .tab:hover:not(.active) {
+            background-color: #e5be53;
+            transform: translateY(-2px);
+        }
+
+        /* 主双栏布局 */
+        .main-container {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+        }
+
+        /* 左侧栏样式 */
+        .left-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .avatar-box {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border: 4px solid #000;
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            image-rendering: pixelated; 
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            background: #e5be53;
+            padding: 10px;
+            border: 3px solid #000;
+        }
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .skill-label {
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: bold;
+        }
+        .custom-progress {
+            height: 12px;
+            border: 2px solid #000;
+            background-color: #fff;
+        }
+        .custom-progress-bar {
+            height: 100%;
+            background-color: #209cee; 
+        }
+        .custom-progress-bar.hp { background-color: #e76e55; }
+
+        .trainer-info {
+            background-color: #fff;
+            border: 3px solid #000;
+            padding: 10px;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+        .info-title {
+            border-bottom: 2px solid #000;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+        .info-row { margin-bottom: 4px; }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .pixel-btn {
+            width: 100%;
+            background-color: #fff;
+            border: 3px solid #000;
+            padding: 10px;
+            font-size: 11px;
+            font-weight: bold;
+            box-shadow: 4px 4px 0px #000;
+            transition: all 0.1s;
+        }
+        .pixel-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+            background-color: #e5be53;
+        }
+        .pixel-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px #000;
+        }
+
+        /* 右侧主面板样式 */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .portfolio-title-section {
+            background: #fff;
+            border: 4px solid #000;
+            padding: 15px;
+        }
+        .portfolio-id {
+            font-size: 28px;
+            margin: 0 0 10px 0;
+            font-weight: 900;
+        }
+        .portfolio-slogan {
+            font-size: 12px;
+            color: #555;
+            margin: 0;
+        }
+
+        .gallery-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .section-header {
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-height: 380px; 
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        /* 首页卡片样式 */
+        .project-card {
+            background-color: #fff;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0px #000;
+            padding: 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            color: #000;
+            transition: all 0.1s;
+        }
+        .project-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+        }
+        .badge {
+            position: absolute;
+            top: -2px; right: 10px;
+            background-color: #e76e55;
+            color: #fff; font-size: 8px; padding: 2px 4px;
+            border: 2px solid #000; font-weight: bold;
+            z-index: 2;
+        }
+        .badge.blue { background-color: #209cee; }
+        .badge.purple { background-color: #9c27b0; }
+        .badge.green { background-color: #4caf50; }
+
+        .card-preview {
+            height: 90px; 
+            background-color: #e5be53;
+            border: 2px solid #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+        .card-preview i {
+            font-size: 26px; background: #fff; padding: 5px;
+            border: 2px solid #000; box-shadow: 2px 2px 0px #000;
+        }
+        .card-mini-bar { width: 65%; height: 10px; background: #fff; border: 2px solid #000; }
+        .card-mini-bar-fill { height: 100%; }
+
+        .card-info { display: flex; flex-direction: column; }
+        .card-title { font-size: 13px; font-weight: bold; margin-bottom: 4px; }
+        .card-subtitle { font-size: 10px; color: #666; }
+
+        /* 任务日志区 */
+        .quest-log-section { border: 3px solid #000; background-color: #fff; padding: 15px; position: relative; }
+        .quest-title { font-size: 12px; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+        .quest-content { font-size: 11px; line-height: 1.8; text-align: justify; }
+        .arrow-indicator { position: absolute; right: 10px; bottom: 10px; color: #e5be53; animation: blink 0.8s infinite steps(2); }
+        @keyframes blink { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+        /* 二级背包复古卡带式样式 */
+        .case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; padding: 5px 0; }
+        .case-stack-item { display: flex; flex-direction: column; gap: 10px; transition: transform 0.2s; }
+        .case-card-container { position: relative; height: 130px; width: 100%; }
+        
+        .case-stack-card {
+            position: absolute; width: 100%; height: 100%;
+            border: 3px solid #000; box-shadow: 2px 2px 0px #000;
+            transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28), background 0.2s;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
+        
+        .case-stack-card.layer-3 { transform: translate(8px, 8px); z-index: 1; background: #c4a456; }
+        .case-stack-card.layer-2 { transform: translate(4px, 4px); z-index: 2; background: #e5be53; }
+        .case-stack-card.layer-1 { transform: translate(0px, 0px); z-index: 3; background: #ffffff; }
+
+        .card-tape {
+            width: 100%; height: 14px; border-bottom: 3px solid #000;
+            background-color: #e76e55; display: flex; justify-content: space-around; align-items: center;
+        }
+        .card-tape::before, .card-tape::after { content:''; display:block; width:8px; height:4px; background:#000; opacity:0.3; }
+
+        .card-pixel-core {
+            flex: 1; width: 100%; display: flex; justify-content: center; align-items: center;
+            background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                              linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                              linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                              linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+            background-size: 10px 10px; background-position: 0 0, 0 5px, 5px -5px, -5px 0;
+            position: relative;
+        }
+        .card-pixel-core i {
+            font-size: 28px; background: #fff; padding: 6px; border: 3px solid #000;
+            box-shadow: 3px 3px 0px #000; z-index: 2;
+        }
+
+        /* 悬停抽卡反馈 */
+        .case-stack-item:hover .case-stack-card.layer-1 { transform: translate(-4px, -10px); background: #fffdf2; box-shadow: 6px 12px 0px #000; }
+        .case-stack-item:hover .case-stack-card.layer-2 { transform: translate(2px, -3px); background: #f2d06b; }
+        .case-stack-item:hover .case-stack-card.layer-3 { transform: translate(8px, 2px); }
+        .case-stack-item:hover .case-name { color: #b53a1d; text-decoration: underline; }
+
+        .case-meta { display: flex; flex-direction: column; gap: 3px; padding-left: 2px; }
+        .case-name { font-size: 11px; font-weight: bold; color: #000; transition: color 0.1s; }
+        .case-count { font-size: 9px; color: #555; font-weight: bold; }
+
+        /* 画廊弹窗 */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6); display: none;
+            justify-content: center; align-items: center; z-index: 999;
+        }
+        .pixel-modal {
+            background-color: #fff; border: 4px solid #000; box-shadow: 8px 8px 0px #000;
+            padding: 20px; width: 90%; max-width: 800px; position: relative;
+        }
+        .modal-header {
+            font-size: 12px; font-weight: bold; margin-bottom: 15px;
+            border-bottom: 2px solid #000; padding-bottom: 5px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .scroll-gallery-viewport { max-height: 450px; overflow-y: auto; padding: 10px; background: #f7f7f7; border: 3px solid #000; margin-bottom: 15px; }
+        .scroll-gallery-grid { display: grid; grid-template-columns:  1fr; gap: 15px; }
+        
+        /* 防盗多媒体自适应容器 */
+        .secure-image-container {
+            position: relative; border: 2px solid #000; background: #fff;
+            box-shadow: 3px 3px 0 #000; width: 100%; overflow: hidden;
+        }
+        .secure-image-container img, .secure-image-container video {
+            width: 100%; height: auto; display: block;
+            -webkit-touch-callout: none; pointer-events: auto;
+        }
+        .secure-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; background: transparent; pointer-events: none; }
+
+        /* 隐藏的原生资产硬核仓库 */
+        #nativeImageWarehouse { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="nativeImageWarehouse">
+        
+        <div id="src-design-0">
+            <img src="images/海报/001.png"> <img src="images/海报/002.png"> <img src="images/海报/003.png">
+            <img src="images/海报/004.png"> <img src="images/海报/005.png"> <img src="images/海报/006.png"> <img src="images/海报/007.png">
+        </div>
+        <div id="src-design-1">
+            <img src="images/商品展示图/001.png"> <img src="images/商品展示图/002.png"> <img src="images/商品展示图/003.png">
+            <img src="images/商品展示图/004.png"> <img src="images/商品展示图/005.png"> <img src="images/商品展示图/006.png">
+            <img src="images/商品展示图/007.png"> <img src="images/商品展示图/008.png"> <img src="images/商品展示图/009.png"> <img src="images/商品展示图/010.png">
+        </div>
+        <div id="src-design-2">
+            <img src="images/项目/001.jpg"> <img src="images/项目/002.png"> <img src="images/项目/003.png">
+            <img src="images/项目/004.png"> <img src="images/项目/005.png"> <img src="images/项目/006.jpg">
+            <img src="images/项目/007.png"> <img src="images/项目/008.png"> <img src="images/项目/009.png">
+        </div>
+
+        <div id="src-video-0">
+            <video src="video/混剪/001.mp4" controls preload="metadata"></video>
+            <video src="video/混剪/002.mp4" controls preload="metadata"></video>
+            <video src="video/混剪/003.mp4" controls preload="metadata"></video>
+        </div>
+        <div id="src-video-1">
+            <video src="video/广告/001.mp4" controls preload="metadata"></video>
+            <video src="video/广告/002.mp4" controls preload="metadata"></video>
+            <video src="video/广告/003.mp4" controls preload="metadata"></video>
+
+        </div>
+        <div id="src-video-2">
+            <video src="video/热点视频/001.mp4" controls preload="metadata"></video>
+            <video src="video/热点视频/002.mp4" controls preload="metadata"></video>
+            <video src="video/热点视频/003.mp4" controls preload="metadata"></video>
+        </div>
+
+        <div id="src-operation-0"><img src="operation/001.png"></div>
+        <div id="src-operation-1"><img src="operation/002.png"></div>
+
+        <div id="src-copy-0"><img src="copy/001.jpg"></div>
+        <div id="src-copy-1"><img src="copy/002.jpg"><img src="copy/003.png"></div>
+        <div id="src-copy-2"><img src="copy/004.png"></div>
+
+        <div id="src-plan-0"><img src="plan/营销/001.jpg"><img src="plan/营销/002.jpg"><img src="plan/营销/003.jpg"><img src="plan/营销/004.jpg"><img src="plan/营销/005.jpg"><img src="plan/002.jpg"></div>
+        <div id="src-plan-1"><img src="plan/001.jpg"></div>
+        <div id="src-plan-2"><img src="plan/游戏化/001.png"><img src="plan/游戏化/002.png"><img src="plan/游戏化/003.png"><img src="plan/游戏化/004.png"></div>
+
+    </div>
+
+    <div class="console-screen">
+        <div class="header-tabs">
+            <div class="tab active" onclick="backToMain()">HOME</div>
+            <div class="tab" onclick="alert('背包装备栏已锁定为主目录状态')">INVENTORY</div>
+            <div class="tab">MAP</div>
+            <div class="tab">SYSTEM</div>
+        </div>
+
+        <div class="main-container">
+            <div class="left-sidebar">
+                <div class="avatar-box">
+                    <img src="images/avatar.jpg" onerror="this.src='E:\\wwwork\\A简历\\avatar.jpg'">
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item" style="grid-column: span 2; margin-bottom: 5px;">
+                        <div class="skill-label"><i class="pixelicon-heart"></i> HP 100%</div>
+                        <div class="custom-progress"><div class="custom-progress-bar hp" style="width: 100%;"></div></div>
+                    </div>
+                    <div class="skill-item"><div class="skill-label">PS:85%</div><div class="custom-progress"><div class="custom-progress-bar" style="width: 85%;"></div></div></div>
+                    <div class="skill-item"><div class="skill-label">剪映:90%</div><div class="custom-progress"><div class="custom-progress-bar" style="width: 90%;"></div></div></div>
+                    <div class="skill-item"><div class="skill-label">PR:70%</div><div class="custom-progress"><div class="custom-progress-bar" style="width: 70%;"></div></div></div>
+                    <div class="skill-item"><div class="skill-label">AE:60%</div><div class="custom-progress"><div class="custom-progress-bar" style="width: 60%;"></div></div></div>
+                    <div class="skill-item"><div class="skill-label">推文:90%</div><div class="custom-progress"><div class="custom-progress-bar" style="width: 90%;"></div></div></div>
+                    <div class="skill-item"><div class="skill-label">摄影:80%</div><div class="custom-progress"><div class="custom-progress-bar" style="width: 80%;"></div></div></div>
+                </div>
+                <div class="trainer-info">
+                    <div class="info-title">TRAINER INFO</div>
+                    <div class="info-row">NAME: <strong>陈佳丽</strong></div>
+                    <div class="info-row">Major: <strong>网络与新媒体</strong></div>
+                    <div class="info-row">Email: 2572305704@qq.com</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="pixel-btn" id="contactBtn">CONTACT TRAINER</button>
+                    <button class="pixel-btn" id="saveBtn">SAVE DATA</button>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="portfolio-title-section">
+                    <h1 class="portfolio-id" id="panelTitle">PORTFOLIO</h1>
+                    <p class="portfolio-slogan" id="panelSlogan">Content builds bridges; creativity brings value</p>
+                </div>
+
+                <div class="gallery-section">
+                    <div class="section-header">
+                        <span id="gallerySectionTitle">PROJECT GALLERY</span>
+                        <button class="pixel-btn" id="backMenuBtn" style="display:none; padding:3px 10px; font-size:9px; width:auto;" onclick="backToMain()">◀ BACK</button>
+                    </div>
+                    
+                    <div class="gallery-grid" id="mainGalleryGrid">
+                        
+                        <div class="project-card" onclick="openCategory('design')">
+                            <div class="badge green">001</div>
+                            <div class="card-preview">
+                                <i class="pixelicon-paint-bucket" style="color: #4caf50;"></i>
+                                <div class="card-mini-bar"><div class="card-mini-bar-fill" style="width: 85%; background-color: #4caf50;"></div></div>
+                            </div>
+                            <div class="card-info"><span class="card-title">设计作品</span><span class="card-subtitle">海报 / 电商页 / 展会物料</span></div>
+                        </div>
+
+                        <div class="project-card" onclick="openCategory('video')">
+                            <div class="badge blue">002</div>
+                            <div class="card-preview">
+                                <i class="pixelicon-device-tv" style="color: #209cee;"></i>
+                                <div class="card-mini-bar"><div class="card-mini-bar-fill" style="width: 75%; background-color: #209cee;"></div></div>
+                            </div>
+                            <div class="card-info"><span class="card-title">剪辑作品</span><span class="card-subtitle">混剪 / 广告 / 热点短视频</span></div>
+                        </div>
+
+                        <div class="project-card" onclick="openCategory('operation')">
+                            <div class="badge purple">003</div>
+                            <div class="card-preview">
+                                <i class="pixelicon-user-plus" style="color: #9c27b0;"></i>
+                                <div class="card-mini-bar"><div class="custom-progress-bar" style="width: 90%; background-color: #9c27b0;"></div></div>
+                            </div>
+                            <div class="card-info"><span class="card-title">运营作品</span><span class="card-subtitle">小红书 / 抖音账号</span></div>
+                        </div>
+
+                        <div class="project-card" onclick="openCategory('copy')">
+                            <div class="badge">004</div>
+                            <div class="card-preview">
+                                <i class="pixelicon-notes" style="color: #e76e55;"></i>
+                                <div class="card-mini-bar"><div class="card-mini-bar-fill" style="width: 80%; background-color: #e76e55;"></div></div>
+                            </div>
+                            <div class="card-info"><span class="card-title">文案作品</span><span class="card-subtitle">采访记录 / 三行诗 / 短文</span></div>
+                        </div>
+                        
+                        <div class="project-card" onclick="openCategory('plan')" style="grid-column: span 2;">
+                            <div class="badge blue">005</div>
+                            <div class="card-preview">
+                                <i class="pixelicon-chess" style="color: #ff9800;"></i>
+                                <div class="card-mini-bar"><div class="card-mini-bar-fill" style="width: 70%; background-color: #ff9800;"></div></div>
+                            </div>
+                            <div class="card-info"><span class="card-title">策划作品</span><span class="card-subtitle">营销 / 互动视频 / 文旅</span></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="quest-log-section">
+                    <div class="quest-title"><i class="pixelicon-git-commit"></i> QUEST_LOG</div>
+                    <div class="quest-content" id="questContent">
+                        本人具备系统的专业知识与丰富的实践经验，富有网感和创意，能及时捕捉热点，擅长新媒体内容策划与产出、视觉设计与视频制作，能独立完成推文撰写、公众号运营及线上线下活动全流程执行。具有数据分析与信息整合能力，注重创意与实效结合，兼具强执行力与沟通协调能力，致力于为品牌传播注入年轻化、专业化的新媒体活力。
+                    </div>
+                    <div class="arrow-indicator">▶</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="galleryModal">
+        <div class="pixel-modal">
+            <div class="modal-header">
+                <span id="modalTitle">ITEM_VIEWER</span>
+                <button class="pixel-btn" style="padding: 2px 8px; font-size: 10px; width: auto;" onclick="closeModal()">[X]</button>
+            </div>
+            <div class="scroll-gallery-viewport">
+                <div class="scroll-gallery-grid" id="modalGridInject"></div>
+            </div>
+            <p style="margin: 0; font-size: 9px; color: #777; text-align: center;">💡 操作指南：滑动滚轮或手指划动浏览。视频支持本地点击进度条进行播放。</p>
+        </div>
+    </div>
+
+    <script>
+        // 5大核心资产板块联动元数据
+        const categoryMeta = {
+            design: {
+                title: "ARCHIVE // DESIGN", slogan: "ROOM_01: 视觉美学与线下物料资产",
+                questText: "任务详情：点击打开对应分类卡带。内含宣发海报设计（7张）、跨境出海业务商品展示图（10张）、线下展会落地物料排版（9张）。",
+                tapeColor: "#4caf50",
+                cases: [
+                    { name: "海报作品 A", count: "📦 7个大图文件", icon: "pixelicon-paint-bucket" },
+                    { name: "跨境电商页 B", count: "📦 10个大图文件", icon: "pixelicon-image" },
+                    { name: "线下展会物料 C", count: "📦 9个大图文件", icon: "pixelicon-briefcase" }
+                ]
+            },
+            video: {
+                title: "ARCHIVE // VIDEO", slogan: "ROOM_02: 动态视听与网感节奏捕获",
+                questText: "任务详情：影视视频资产背包。包含长短编排混剪、包揽编导摄剪的广告短片、社交平台爆款热点视频案例。进入后可自由点击控制条进行播放。",
+                tapeColor: "#209cee",
+                cases: [
+                    { name: "混剪视频类", count: "🎬 3个视频文件", icon: "pixelicon-device-vhs" },
+                    { name: "商业广告类", count: "🎬 3个视频文件", icon: "pixelicon-movie" },
+                    { name: "热点视频类", count: "🎬 3个视频文件", icon: "pixelicon-trending" }
+                ]
+            },
+            operation: {
+                title: "ARCHIVE // OPERATION", slogan: "ROOM_03: 私域孵化与平台账号阵地",
+                questText: "任务详情：新媒体账号代运营与孵化产出成果。包含小红书和抖音两个平台的账号。",
+                tapeColor: "#9c27b0",
+                cases: [
+                    { name: "小红书", count: "📦 1个账号情况", icon: "pixelicon-heart" },
+                    { name: "抖音", count: "📦 1个账号情况", icon: "pixelicon-play" }
+                ]
+            },
+            copy: {
+                title: "ARCHIVE // COPYWRITING", slogan: "ROOM_04: 文字张力与深度内容撰写",
+                questText: "任务详情：纯文本文案及企划。涵盖人物采访推文、青春三行诗创作、推文文案留档。",
+                tapeColor: "#e76e55",
+                cases: [
+                    { name: "采访文稿类", count: "📦 1个采访推文", icon: "pixelicon-comment" },
+                    { name: "短文创作", count: "📦 1个诗集盒", icon: "pixelicon-book" },
+                    { name: "推文类", count: "📦 1个推文留档", icon: "pixelicon-article" }
+                ]
+            },
+            plan: {
+                title: "ARCHIVE // STRATEGY", slogan: "ROOM_05: 全链路活动执行与方案企划",
+                questText: "任务详情：整合营销策划蓝图。包括品牌季度营销规划书、地方文旅宣传策划，线上创意互动视频、软件游戏化改造策划案。",
+                tapeColor: "#ff9800",
+                cases: [
+                    { name: "营销方案", count: "📦 2个方案", icon: "pixelicon-tournament" },
+                    { name: "互动视频", count: "📦 1个视频二维码", icon: "pixelicon-shuffle" },
+                    { name: "游戏化改造策划", count: "📦 1个策划", icon: "pixelicon-grid" }
+                ]
+            }
+        };
+
+        const originalGalleryHTML = document.getElementById('mainGalleryGrid').innerHTML;
+        const modal = document.getElementById('galleryModal');
+
+        // 生成二级非纯白代码渐变样式背包网格
+        function openCategory(key) {
+            const data = categoryMeta[key];
+            if (!data) return;
+
+            document.getElementById('panelTitle').innerText = data.title;
+            document.getElementById('panelSlogan').innerText = data.slogan;
+            document.getElementById('questContent').innerText = data.questText;
+            document.getElementById('backMenuBtn').style.display = "inline-block";
+            document.getElementById('gallerySectionTitle').innerText = "SELECT ITEM (INVENTORY)";
+
+            let gridHTML = `<div class="case-grid">`;
+            data.cases.forEach((c, index) => {
+                gridHTML += `
+                    <div class="case-stack-item" onclick="openRollGallery('${key}', ${index})">
+                        <div class="case-card-container">
+                            <div class="case-stack-card layer-3"></div>
+                            <div class="case-stack-card layer-2"></div>
+                            <div class="case-stack-card layer-1">
+                                <div class="card-tape" style="background-color: ${data.tapeColor}"></div>
+                                <div class="card-pixel-core">
+                                    <i class="${c.icon}"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="case-meta">
+                            <span class="case-name">${c.name}</span>
+                            <span class="case-count">${c.count}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            gridHTML += `</div>`;
+            document.getElementById('mainGalleryGrid').innerHTML = gridHTML;
+        }
+
+        // 自动化抓取多媒体资源
+        function openRollGallery(catKey, caseIndex) {
+            const caseItem = categoryMeta[catKey].cases[caseIndex];
+            document.getElementById('modalTitle').innerText = `ITEM_VIEWER // ${caseItem.name}`;
+            
+            const sourceContainer = document.getElementById(`src-${catKey}-${caseIndex}`);
+            const injectTarget = document.getElementById('modalGridInject');
+            injectTarget.innerHTML = ""; 
+
+            if (sourceContainer) {
+                const elements = sourceContainer.querySelectorAll('img, video');
+                if(elements.length === 0) {
+                    injectTarget.innerHTML = "<p style='grid-column:span 1; text-align:center; font-size:11px; padding:20px;'>💡 该子类目暂未放置作品资源，请前往对应命名文件夹放入文件。</p>";
+                } else {
+                    elements.forEach(el => {
+                        const container = document.createElement('div');
+                        container.className = 'secure-image-container';
+                        
+                        const shield = document.createElement('div');
+                        shield.className = 'secure-shield';
+                        
+                        const newEl = el.cloneNode(true);
+                        newEl.setAttribute('oncontextmenu', 'return false;');
+                        
+                        container.appendChild(shield);
+                        container.appendChild(newEl);
+                        injectTarget.appendChild(container);
+                    });
+                }
+            } else {
+                injectTarget.innerHTML = "<p style='grid-column:span 1; text-align:center; font-size:11px; padding:20px;'>💡 资产节点缺失，请在 HTML 后台补全该分类。</p>";
+            }
+            modal.style.display = 'flex';
+        }
+
+        // 返回首页主菜单
+        function backToMain() {
+            document.getElementById('panelTitle').innerText = "PORTFOLIO";
+            document.getElementById('panelSlogan').innerText = "Content builds bridges; creativity brings value";
+            document.getElementById('gallerySectionTitle').innerText = "PROJECT GALLERY";
+            document.getElementById('backMenuBtn').style.display = "none";
+            document.getElementById('mainGalleryGrid').innerHTML = originalGalleryHTML;
+            document.getElementById('questContent').innerText = "本人具备系统的专业知识与丰富的实践经验，富有网感和创意，能及时捕捉热点，擅长新媒体内容策划与产出、视觉设计与视频制作，能独立完成推文撰写、公众号运营及线上线下活动全流程执行。具有数据分析与信息整合能力，注重创意与实效结合，兼具强执行力与沟通协调能力，致力于为品牌传播注入年轻化、专业化的新媒体活力。";
+            
+            // 返回主页时自动关闭可能正在播放的本地视频
+            const openVideos = modal.querySelectorAll('video');
+            openVideos.forEach(v => v.pause());
+        }
+
+        function closeModal() { 
+            const openVideos = modal.querySelectorAll('video');
+            openVideos.forEach(v => v.pause());
+            modal.style.display = 'none'; 
+        }
+        
+        // 物理网页防盗
+        window.addEventListener('contextmenu', e => e.preventDefault(), false);
+        window.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'c' || e.key === 'C')) e.preventDefault();
+        });
+	// 绑定左侧【CONTACT TRAINER】联系我按钮的点击事件
+        document.getElementById('contactBtn').addEventListener('click', function() {
+            // 这里将弹窗标题改为联系信息
+            document.getElementById('modalTitle').innerText = "SYSTEM // CONTACT_INFO";
+            
+            // 注入你的详细联系方式 HTML 内容
+            const injectTarget = document.getElementById('modalGridInject');
+            injectTarget.innerHTML = `
+                <div style="grid-column: span 1; padding: 20px; font-size: 13px; line-height: 2; background: #fff; border: 3px solid #000; box-shadow: 4px 4px 0px #000;">
+                    <p style="margin: 0 0 10px 0; font-weight: bold; color: #b53a1d; border-bottom: 2px solid #000; padding-bottom: 5px;">📞 欢迎建立联系 / CONTACT ME</p>
+                    <p style="margin: 5px 0;"><strong>姓名：</strong>陈佳丽 </p>
+                    <p style="margin: 5px 0;"><strong>邮箱：</strong>2572305704@qq.com</p>
+                    <p style="margin: 5px 0;"><strong>微信：</strong>NGC-832697 <span style="font-size: 10px; color: #666;"></span></p>
+                    <br>
+                    <p style="margin: 0; font-size: 10px; color: #777; text-align: center; border-top: 1px dashed #000; padding-top: 10px;">💡 期待与您的团队共同创造更有网感与价值的内容！</p>
+                </div>
+            `;
+            // 展现弹窗
+            modal.style.display = 'flex';
+        });
+
+        // 顺便补上【SAVE DATA】存档按钮的复古像素风小彩蛋提示
+        document.getElementById('saveBtn').addEventListener('click', function() {
+            alert('💾 SYSTEM: 资产档案保存成功！当前进度已固化至作品集区块。');
+        });
+    </script>
+</body>
+</html>
