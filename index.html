@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CJL // PORTFOLIO_FINAL</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet">
@@ -98,6 +98,7 @@
             image-rendering: pixelated; 
         }
 
+        /* 技能网格样式 */
         .skills-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -346,65 +347,67 @@
 
         /* 隐藏的原生资产硬核仓库 */
         #nativeImageWarehouse { display: none; }
-/* 📱 手机端/移动端全像素完美自适应优化 */
-        @media (max-width: 768px) {
-            /* 页面外边距微调，使容器整体居中 */
+
+        /* 📱 手机移动端：专属自适应核心隔离样式（使用父级限定，绝对不污染电脑端） */
+        @media screen and (max-width: 768px) {
             body {
-                padding: 15px 10px !important;
+                padding: 10px !important;
             }
             
-            /* 1. 彻底解散双栏，强制变为上下垂直排列，并加上 30px 的安全间距隔离两个面板 */
-            .main-container {
+            /* 让游戏机外壳在手机上全宽铺满，保持居中，不偏向一边 */
+            .console-screen {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 12px !important;
+                box-sizing: border-box !important;
+            }
+
+            /* 核心：只对手机端下的 main-container 解散双栏，变为上下垂直排列 */
+            body .main-container {
                 display: flex !important;
                 flex-direction: column !important;
                 gap: 30px !important; 
                 width: 100% !important;
-                max-width: 100% !important;
-                box-sizing: border-box !important;
             }
             
-            /* 确保两个大面板宽度都撑满手机屏幕，不偏向一边 */
-            .left-sidebar, .console-screen {
+            body .left-sidebar, body .right-panel {
                 width: 100% !important;
                 max-width: 100% !important;
-                box-sizing: border-box !important;
             }
             
-            /* 头像在手机端居中缩小 */
-            .avatar-box {
+            body .avatar-box {
                 max-width: 180px !important;
-                margin: 0 auto 15px auto !important;
+                margin: 0 auto 10px auto !important;
             }
             
-            /* 2. 彻底拯救首页 5 个分类方块，给它们自由撑开的高度 */
-            .gallery-grid {
+            /* 首页 5 个大分类方块手机端自适应 */
+            body .gallery-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
                 max-height: none !important;
                 height: auto !important;
-                gap: 15px !important;
+                gap: 12px !important;
             }
-            .project-card[onclick*="plan"] {
+            body .project-card[onclick*="plan"] {
                 grid-column: span 2 !important;
             }
             
-            /* 3. 彻底拯救二级页面的卡带小方块：由三列强制改为两列，防止横向挤压 */
-            .case-grid {
+            /* 二级背包页面的卡带小方块：强制转为两列，加入上下安全行距，防重叠 */
+            body .case-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
-                gap: 20px 15px !important; /* 上下间距 20px，左右间距 15px */
+                gap: 25px 15px !important; 
                 height: auto !important;
                 max-height: none !important;
             }
             
-            /* 核心：将卡带外部容器的高度强制解除限制，由内容完美撑开，拒绝压扁！ */
-            .case-card-container {
-                height: auto !important; 
-                min-height: 140px !important; /* 设定底线高度，确保卡带饱满立体 */
-                padding-bottom: 10px !important;
+            /* 强行撑高二级卡带容器的独立高度，给文字和内容留出饱满空间，彻底拒绝被压扁 */
+            body .case-card-container {
+                height: 145px !important; 
+                min-height: 145px !important;
             }
             
-            /* 4. 纵向拉高大图弹窗浏览区域（占手机屏幕的 75% 高度） */
-            .scroll-gallery-viewport { 
-                max-height: 75vh !important; 
+            /* 作品长图弹窗纵向拔高 */
+            body .scroll-gallery-viewport { 
+                max-height: 70vh !important; 
             }
         }
     </style>
@@ -412,7 +415,6 @@
 <body>
 
     <div id="nativeImageWarehouse">
-        
         <div id="src-design-0">
             <img src="海报/001.png"> <img src="海报/002.png"> <img src="海报/003.png">
             <img src="海报/004.png"> <img src="海报/005.png"> <img src="海报/006.png"> <img src="海报/007.png">
@@ -427,7 +429,6 @@
             <img src="项目/004.png"> <img src="项目/005.png"> <img src="项目/006.jpg">
             <img src="项目/007.png"> <img src="项目/008.png"> <img src="项目/009.png">
         </div>
-
         <div id="src-video-0">
             <video src="混剪/001.mp4" controls preload="metadata"></video>
             <video src="混剪/002.mp4" controls preload="metadata"></video>
@@ -437,25 +438,20 @@
             <video src="广告/001.mp4" controls preload="metadata"></video>
             <video src="广告/002.mp4" controls preload="metadata"></video>
             <video src="广告/003.mp4" controls preload="metadata"></video>
-
         </div>
         <div id="src-video-2">
             <video src="热点视频/001.mp4" controls preload="metadata"></video>
             <video src="热点视频/002.mp4" controls preload="metadata"></video>
             <video src="热点视频/003.mp4" controls preload="metadata"></video>
         </div>
-
         <div id="src-operation-0"><img src="operation/001.png"></div>
         <div id="src-operation-1"><img src="operation/002.png"></div>
-
         <div id="src-copy-0"><img src="copy/001.jpg"></div>
         <div id="src-copy-1"><img src="copy/002.jpg"><img src="copy/003.png"></div>
         <div id="src-copy-2"><img src="copy/004.png"></div>
-
         <div id="src-plan-0"><img src="plan/营销/001.jpg"><img src="plan/营销/002.jpg"><img src="plan/营销/003.jpg"><img src="plan/营销/004.jpg"><img src="plan/营销/005.jpg"><img src="plan/002.jpg"></div>
         <div id="src-plan-1"><img src="plan/001.jpg"></div>
         <div id="src-plan-2"><img src="plan/游戏化/001.png"><img src="plan/游戏化/002.png"><img src="plan/游戏化/003.png"><img src="plan/游戏化/004.png"></div>
-
     </div>
 
     <div class="console-screen">
@@ -466,8 +462,6 @@
             <div class="tab">SYSTEM</div>
         </div>
 
-<div class="main-container">
-		
         <div class="main-container">
             <div class="left-sidebar">
                 <div class="avatar-box">
@@ -510,7 +504,6 @@
                     </div>
                     
                     <div class="gallery-grid" id="mainGalleryGrid">
-                        
                         <div class="project-card" onclick="openCategory('design')">
                             <div class="badge green">001</div>
                             <div class="card-preview">
@@ -555,14 +548,13 @@
                             </div>
                             <div class="card-info"><span class="card-title">策划作品</span><span class="card-subtitle">营销 / 互动视频 / 文旅</span></div>
                         </div>
-
                     </div>
                 </div>
 
                 <div class="quest-log-section">
                     <div class="quest-title"><i class="pixelicon-git-commit"></i> QUEST_LOG</div>
                     <div class="quest-content" id="questContent">
-                        本人具备系统的专业知识与丰富的实践经验，富有网感和创意，能及时捕捉热点，擅长新媒体内容策划与产出、视觉设计与视频制作，能独立完成推文撰写、公众号运营及线上线下活动全流程执行。具有数据分析与信息整合能力，注重创意与实效结合，兼具强执行力与沟通协调能力，致力于为品牌传播注入年轻化、专业化的新媒体活力。
+                        本人具备系统的专业知识与丰富的实践经验，富有网感和创意，能及时捕捉热点，擅长新媒体内容策划与产出、视觉设计与视频制作，能独立完成推文撰写、公众号运营及线上线下活动全流程执行。具有数据分析与信息整合能力，注重创意与实效结合，兼具强执行力与沟通协调能力，致力于为 brand 传播注入年轻化、专业化的新媒体活力。
                     </div>
                     <div class="arrow-indicator">▶</div>
                 </div>
@@ -584,7 +576,6 @@
     </div>
 
     <script>
-        // 5大核心资产板块联动元数据
         const categoryMeta = {
             design: {
                 title: "ARCHIVE // DESIGN", slogan: "ROOM_01: 视觉美学与线下物料资产",
@@ -640,7 +631,6 @@
         const originalGalleryHTML = document.getElementById('mainGalleryGrid').innerHTML;
         const modal = document.getElementById('galleryModal');
 
-        // 生成二级非纯白代码渐变样式背包网格
         function openCategory(key) {
             const data = categoryMeta[key];
             if (!data) return;
@@ -676,7 +666,6 @@
             document.getElementById('mainGalleryGrid').innerHTML = gridHTML;
         }
 
-        // 自动化抓取多媒体资源
         function openRollGallery(catKey, caseIndex) {
             const caseItem = categoryMeta[catKey].cases[caseIndex];
             document.getElementById('modalTitle').innerText = `ITEM_VIEWER // ${caseItem.name}`;
@@ -711,56 +700,26 @@
             modal.style.display = 'flex';
         }
 
-        // 返回首页主菜单
         function backToMain() {
             document.getElementById('panelTitle').innerText = "PORTFOLIO";
             document.getElementById('panelSlogan').innerText = "Content builds bridges; creativity brings value";
-            document.getElementById('gallerySectionTitle').innerText = "PROJECT GALLERY";
+            document.getElementById('questContent').innerText = `本人具备系统的专业知识与丰富的实践经验，富有网感和创意，能及时捕捉热点，擅长新媒体内容策划与产出、视觉设计与视频制作，能独立完成推文撰写、公众号运营及线上线下活动全流程执行。具有数据分析与信息整合能力，注重创意与实效结合，兼具强执行力与沟通协调能力，致力于为 brand 传播注入年轻化、专业化的新媒体活力。`;
             document.getElementById('backMenuBtn').style.display = "none";
+            document.getElementById('gallerySectionTitle').innerText = "PROJECT GALLERY";
             document.getElementById('mainGalleryGrid').innerHTML = originalGalleryHTML;
-            document.getElementById('questContent').innerText = "本人具备系统的专业知识与丰富的实践经验，富有网感和创意，能及时捕捉热点，擅长新媒体内容策划与产出、视觉设计与视频制作，能独立完成推文撰写、公众号运营及线上线下活动全流程执行。具有数据分析与信息整合能力，注重创意与实效结合，兼具强执行力与沟通协调能力，致力于为品牌传播注入年轻化、专业化的新媒体活力。";
-            
-            // 返回主页时自动关闭可能正在播放的本地视频
-            const openVideos = modal.querySelectorAll('video');
-            openVideos.forEach(v => v.pause());
         }
 
-        function closeModal() { 
-            const openVideos = modal.querySelectorAll('video');
-            openVideos.forEach(v => v.pause());
-            modal.style.display = 'none'; 
+        function closeModal() {
+            modal.style.display = 'none';
+            const videos = modal.querySelectorAll('video');
+            videos.forEach(v => v.pause());
         }
-        
-        // 物理网页防盗
-        window.addEventListener('contextmenu', e => e.preventDefault(), false);
-        window.addEventListener('keydown', e => {
-            if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'c' || e.key === 'C')) e.preventDefault();
-        });
-	// 绑定左侧【CONTACT TRAINER】联系我按钮的点击事件
-        document.getElementById('contactBtn').addEventListener('click', function() {
-            // 这里将弹窗标题改为联系信息
-            document.getElementById('modalTitle').innerText = "SYSTEM // CONTACT_INFO";
-            
-            // 注入你的详细联系方式 HTML 内容
-            const injectTarget = document.getElementById('modalGridInject');
-            injectTarget.innerHTML = `
-                <div style="grid-column: span 1; padding: 20px; font-size: 13px; line-height: 2; background: #fff; border: 3px solid #000; box-shadow: 4px 4px 0px #000;">
-                    <p style="margin: 0 0 10px 0; font-weight: bold; color: #b53a1d; border-bottom: 2px solid #000; padding-bottom: 5px;">📞 欢迎建立联系 / CONTACT ME</p>
-                    <p style="margin: 5px 0;"><strong>姓名：</strong>陈佳丽 </p>
-                    <p style="margin: 5px 0;"><strong>邮箱：</strong>2572305704@qq.com</p>
-                    <p style="margin: 5px 0;"><strong>微信：</strong>NGC-832697 <span style="font-size: 10px; color: #666;"></span></p>
-                    <br>
-                    <p style="margin: 0; font-size: 10px; color: #777; text-align: center; border-top: 1px dashed #000; padding-top: 10px;">💡 期待与您的团队共同创造更有网感与价值的内容！</p>
-                </div>
-            `;
-            // 展现弹窗
-            modal.style.display = 'flex';
-        });
 
-        // 顺便补上【SAVE DATA】存档按钮的复古像素风小彩蛋提示
-        document.getElementById('saveBtn').addEventListener('click', function() {
-            alert('💾 SYSTEM: 资产档案保存成功！当前进度已固化至作品集区块。');
-        });
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
